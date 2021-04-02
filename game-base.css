@@ -1,0 +1,21 @@
+.storyboard, .component {
+	position: absolute;
+	left: 0;
+	top: 0;
+	pointer-events: none;
+}
+
+.storyboard {
+	transform-style: preserve-3d;
+	transform-origin: center center;
+	outline: 4px solid black;
+}
+
+..active {
+	pointer-events: all;
+}
+
+.component {
+	background-size: contain;
+	pointer-events: none;
+}
