@@ -1,6 +1,10 @@
 {
 	'use strict';
 
+	// Configurations
+	const zooming_duration = 1;
+	const delay_interval = .5;
+
 	// Declaration
 	const scene = game.createStoryboard('Scene 2', [855, 540], [972, 0, 0]);
 	scene.setStyle('perspective', '100px');
@@ -21,15 +25,12 @@
 
 	// Action sequence
 	scene.addAction(foreground.toWaitForClick());
-	const td = '1s';
 	scene.addInstantAction(() => {
 		foreground.setStyle('backgroundImage', 'url(resource/scene-2/curtain-open.png)');
-		foreground.setStyle('transform', 'translate3d(0px, 0px, 0px)');
-		background.setStyle('transform', 'translate3d(0px, 0px, 0px)');
-		foreground.setStyle('transitionDuration', td);
-		background.setStyle('transitionDuration', td);
+		foreground.setStyle('transitionDuration', `${zooming_duration}s`);
+		background.setStyle('transitionDuration', `${zooming_duration}s`);
 	});
-	scene.addAction(Game.toDelay(1));
+	scene.addAction(Game.toDelay(delay_interval));
 	scene.addInstantAction(() => {
 		foreground.setStyle('transform', 'translate3d(50px, 50px, 30px)');
 		background.setStyle('transform', 'translate3d(50px, 50px, 30px)');

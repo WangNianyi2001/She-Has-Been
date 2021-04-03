@@ -2,6 +2,8 @@
 	'use strict';
 
 	// Configurations
+	const width = 960, height = 540;
+	const message_delay = 1;
 	const moments = [
 		['url(resource/cell/avatar/wlt.png)', '我是 HHL'],
 		['url(resource/cell/avatar/sparrow.png)', '楼下是沙壁'],
@@ -21,17 +23,17 @@
 	];
 
 	// Declaration
-	const scene = game.createStoryboard('Scene 1', [960, 540], [0, 0, 0]);
+	const scene = game.createStoryboard('Scene 1', [width, height], [0, 0, 0]);
 	scene.setStyle('perspective', '100px');
 
 	// Resources
-	const background = scene.createComponent([960, 540], [0, 0, -10]);
+	const background = scene.createComponent([width, height], [0, 0, -10]);
 	background.setStyle('backgroundImage', 'url(resource/scene-1/background.png)');
-	const foreground = scene.createComponent([960, 540], [0, 0, 0]);
+	const foreground = scene.createComponent([width, height], [0, 0, 0]);
 	foreground.setStyle('backgroundImage', 'url(resource/scene-1/foreground.png)');
 	const cell_hotarea = scene.createComponent([50, 50], [470, 235, 0]);
 
-	const cell = new Cell(scene, [960 - 746 / 3, 540 - 1380 / 3, 0]);
+	const cell = new Cell(scene, [width - Cell.dimension[0], height, 0]);
 	cell.setStyle('visibility', 'hidden');
 	const moment = cell.createScreen(
 		Cell.Moment,
@@ -57,6 +59,11 @@
 	scene.addInstantAction(() => {
 		cell.showScreen('moment');
 		cell.setStyle('visibility', 'visible');
+		cell.setStyle('transform', `translate3d(${
+			[width - Cell.dimension[0], height - Cell.dimension[1], 0]
+				.map(_ => _ + 'px')
+				.join(', ')
+		})`);
 		moments.forEach(_ => moment.addMoment(..._));
 	});
 	scene.addAction(cell.toWaitForClick());
@@ -80,6 +87,7 @@
 	scene.addAction(cell.toWaitForClick());
 	scene.addInstantAction(() => cell.showScreen('moment'));
 	scene.addInstantAction(() => moment.addMoment('url(resource/cell/avatar/1.png)', post_text));
+	scene.addAction(Game.toDelay(message_delay));
 	scene.addAction(cb => {
 		cell.alert(dialogues[0][1]);
 		cell.current_alert.setStyle('cursor', 'pointer');
