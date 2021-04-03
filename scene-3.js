@@ -88,7 +88,7 @@
 	const chat = cell.createScreen(
 		Cell.Screen,
 		'chat',
-		'url(resource/cell/chat.png)',
+		'url(resource/cell/screen/chat.png)',
 		'聊天'
 	);
 	const hot_area = scene.createComponent([70, 100], [20, 180, 0]);

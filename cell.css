@@ -30,6 +30,7 @@
 	width: 202px;
 	max-height: 351px;
 	overflow-y: auto;
+	box-sizing: border-box;
 }
 
 .screen.moment > .content {
@@ -58,4 +59,8 @@
 .screen.moment .text {
 	height: max-content;
 	word-break: break-all;
+}
+
+.screen.chat .dialogue {
+	background: red;
 }

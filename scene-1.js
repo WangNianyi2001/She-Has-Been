@@ -28,20 +28,19 @@
 	const moment = cell.createScreen(
 		Cell.Moment,
 		'moment',
-		'url(resource/cell/moment.png)',
+		'url(resource/cell/screen/moment.png)',
 		'朋友圈'
 	);
 	const post = cell.createScreen(
 		Cell.Screen,
 		'post',
-		'url(resource/cell/post.png)',
+		'url(resource/cell/screen/post.png)',
 		''
-	).root;
-		const input = makeDiv();
+	);
 	const chat = cell.createScreen(
-		Cell.Screen,
+		Cell.Chat,
 		'chat',
-		'url(resource/cell/chat.png)',
+		'url(resource/cell/screen/chat.png)',
 		'聊天'
 	);
 
@@ -66,15 +65,6 @@
 		if(current_cell_alert)
 			current_cell_alert.parentNode.removeChild(current_cell_alert);
 	}
-	function initPost() {
-		post.style.flex = '1';
-		input.style.width = '100%';
-		input.style.height = '100%';
-		input.style.boxSizing = 'border-box';
-		input.style.wordBreak = 'break-all';
-		input.style.padding = '10px';
-		post.appendChild(input);
-	}
 
 	// Action sequence
 	scene.addAction(cell_hotarea.toWaitForClick());
@@ -84,17 +74,20 @@
 		moments.forEach(_ => moment.addMoment(..._));
 	});
 	scene.addAction(cell.toWaitForClick());
-	scene.addInstantAction(initPost);
+	scene.addInstantAction(() => {
+		post.content.setStyle('wordBreak', 'break-all');
+		post.content.setStyle('padding', '10px');
+	});
 	scene.addInstantAction(() => cell.showScreen('post'));
 	scene.addAction(cb => {
 		let i = 0;
 		function handler() {
 			if((i += 3) >= post_text.length) {
 				document.removeEventListener('keydown', handler);
-				cell.root.style.backgroundImage = 'url(resource/cell/post-green.png)'
+				cell.root.style.backgroundImage = 'url(resource/cell/screen/post-green.png)'
 				cb();
 			}
-			input.innerText = post_text.slice(0, i);
+			post.content.root.innerText = post_text.slice(0, i);
 		}
 		document.addEventListener('keydown', handler);
 	});
@@ -118,16 +111,10 @@
 		[false, 'How could it be? There\'s no way for a grandson to be a father.'],
 		[true, 'I cnm.'],
 	];
-	function addDialogue(self, str) {
-		const dialogue = makeDiv();
-		dialogue.innerText = str;
-		dialogue.style.textAlign = self ? 'left' : 'right';
-		chat.content.append(dialogue);
-	}
 	scene.addInstantAction(() => chat.content.setStyle('flexDirection', 'column'));
 	for(const dialogue of dialogues) {
 		scene.addAction(cell.toWaitForClick());
-		scene.addInstantAction(() => addDialogue(...dialogue));
+		scene.addInstantAction(() => chat.addDialogue(...dialogue));
 	}
 	scene.addAction(cell.toWaitForClick());
 
