@@ -13,6 +13,13 @@
 	const sunset = scene.createComponent([855, 540], [0, 0, 0]);
 	sunset.setStyle('backgroundImage', 'url(resource/scene-2/sunset.png)');
 	sunset.setStyle('zIndex', '-1');
+	const character = makeDiv();
+	foreground.root.appendChild(character);
+	character.style.width = '284px';
+	character.style.height = '355px';
+	character.style.transform = 'translate3d(100px, 185px, 0px)'
+	character.style.backgroundImage = 'url(resource/scene-2/character-1.png)';
+	
 
 	// Action sequence
 	scene.addAction(foreground.toWaitForClick());
@@ -27,9 +34,9 @@
 	});
 	scene.addAction(Game.toDelay(1));
 	scene.addAction(cb => {
-		foreground.setStyle('transform', 'translate3d(0px, 0px, 10px)');
-		background.setStyle('transform', 'translate3d(0px, 0px, 10px)');
+		foreground.setStyle('transform', 'translate3d(50px, 50px, 30px)');
+		background.setStyle('transform', 'translate3d(50px, 50px, 30px)');
 		cb();
 	});
+	  
 }
-
