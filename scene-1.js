@@ -112,9 +112,4 @@
 			cb();
 		}, { once: true });
 	});
-
-	// Instant actions
-	game.focusOn('Scene 1');
-	game.updateViewport();
-	game.activate('Scene 1');
 }
