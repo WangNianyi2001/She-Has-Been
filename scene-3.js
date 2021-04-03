@@ -2,7 +2,7 @@
 	'use strict';
 
 	// Declaration
-	const scene = game.createStoryboard('Scene 3', [960, 540], [1944, 0, 0]);
+	const scene = game.createStoryboard('Scene 3', [960, 540], [1839, 0, 0]);
 	scene.setStyle('perspective', '100px');
 
 	// Resources
@@ -64,7 +64,7 @@
 	// scene.addAction(mail.toWaitForClick());
 	let line = 0;
 	scene.addAction(Game.toDelay(1));
-	const mails = Array(9).fill(0).map((_, i) => createMail(`resource/scene-3/files/${i}.png`));
+	const mails = Array(8).fill(0).map((_, i) => createMail(`resource/scene-3/files/${i}.png`));
 	for(const mail of mails) {
 		scene.addAction(cb => {
 			move(mail, 480, 140);
@@ -98,7 +98,6 @@
 		}, 500);
 	});
 	const hot_area = scene.createComponent([70, 100], [20, 180, 0]);
-	hot_area.setStyle('backgroundColor', 'rgba(255, 0, 0, .5)');
 	scene.addAction(hot_area.toWaitForClick());
 	scene.addAction(cb => {
 		cell.showScreen('chat');

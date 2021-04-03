@@ -37,6 +37,7 @@
 		background.setStyle('transform', 'translate3d(50px, 50px, 30px)');
 		cb();
 	});
+	scene.addAction(foreground.toWaitForClick());
 
 	// End
 	scene.addAction(cb => {

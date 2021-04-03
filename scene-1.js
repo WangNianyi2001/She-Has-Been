@@ -25,49 +25,32 @@
 
 	const cell = new Cell(scene, [746 / 3, 1380 / 3], [960 - 746 / 3, 540 - 1380 / 3, 0], [32, 25, 42, 22]);
 	cell.setStyle('visibility', 'hidden');
-	const moment = cell.createScreen('moment', 'url(resource/cell/moment.png)').root;
-		const title = makeDiv();
-		const content = makeDiv();
+	const moment = cell.createScreenWithTitle(
+		'moment',
+		'url(resource/cell/moment.png)',
+		'朋友圈'
+	);
 	const post = cell.createScreen('post', 'url(resource/cell/post.png)').root;
 		const input = makeDiv();
-	const chat = cell.createScreen('chat', 'url(resource/cell/chat.png)').root;
+	const chat = cell.createScreenWithTitle(
+		'chat',
+		'url(resource/cell/chat.png)',
+		'聊天'
+	);
 
 	function initMoment() {
-		{
-			moment.style.flex = '1';
-			moment.style.display = 'flex';
-			moment.style.flexDirection = 'column';
-			moment.style.position = 'relative';
-			moment.style.overflow = 'hidden';
-		}
-		moment.appendChild(title);
-		{
-			title.style.height = '35px';
-			title.style.lineHeight = '27px';
-			title.style.textAlign = 'center';
-		}
-		title.innerText = '朋友圈';
-		moment.appendChild(content);
-		{
-			content.style.flex = '1 0 0px';
-			content.style.display = 'flex';
-			content.style.maxHeight = '351px';
-			content.style.overflowY = 'scroll';
-			content.style.flexDirection = 'column-reverse';
-			content.style.justifyContent = 'flex-end';
-		}
+		moment.content.style.flexDirection = 'column-reverse';
+		moment.content.style.justifyContent = 'flex-end';
 	}
 	function addMoment(avatar_bg, str) {
 		const _moment = makeDiv();
-		content.appendChild(_moment);
-		{
-			_moment.style.borderBottom = '1px solid black';
-			_moment.style.paddingBottom = '10px';
-			_moment.style.height = 'max-content';
-			_moment.style.display = 'flex';
-			_moment.style.alignItems = 'top';
-			_moment.style.margin = '10px 10px 0';
-		}
+		moment.content.appendChild(_moment);
+		_moment.style.borderBottom = '1px solid black';
+		_moment.style.paddingBottom = '10px';
+		_moment.style.height = 'max-content';
+		_moment.style.display = 'flex';
+		_moment.style.alignItems = 'top';
+		_moment.style.margin = '10px 10px 0';
 		const avatar = makeDiv();
 		_moment.appendChild(avatar);
 		{
@@ -101,18 +84,16 @@
 	}
 	function removeAlert() {
 		if(current_cell_alert)
-			moment.removeChild(current_cell_alert);
+			current_cell_alert.parentNode.removeChild(current_cell_alert);
 	}
 	function initPost() {
 		post.style.flex = '1';
+		input.style.width = '100%';
+		input.style.height = '100%';
+		input.style.boxSizing = 'border-box';
+		input.style.wordBreak = 'break-all';
+		input.style.padding = '42px 25px 42px 22px';
 		post.appendChild(input);
-		{
-			input.style.width = '100%';
-			input.style.height = '100%';
-			input.style.boxSizing = 'border-box';
-			input.style.wordBreak = 'break-all';
-			input.style.padding = '42px 25px 42px 22px';
-		}
 	}
 
 	// Action sequence
@@ -157,6 +138,32 @@
 			cb();
 		}, { once: true });
 	});
+	const dialogues = [
+		// true - self, false - opposite
+		[true, 'Hello, cnm!'],
+		[false, 'Cnm, too!'],
+		[true, 'You say your mother ne? I\'m your father.'],
+		[false, 'How could it be? There\'s no way for a grandson to be a father.'],
+		[true, 'I cnm.'],
+	];
+	function addDialogue(self, str) {
+		const dialogue = makeDiv();
+		dialogue.innerText = str;
+		dialogue.style.textAlign = self ? 'left' : 'right';
+		chat.content.appendChild(dialogue);
+	}
+	scene.addAction(cb => {
+		chat.content.style.flexDirection = 'column';
+		cb();
+	});
+	for(const dialogue of dialogues) {
+		scene.addAction(cell.toWaitForClick());
+		scene.addAction(cb => {
+			addDialogue(...dialogue);
+			cb();
+		});
+	}
+	scene.addAction(cell.toWaitForClick());
 
 	// End
 	scene.addAction(cb => {
