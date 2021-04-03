@@ -11,11 +11,16 @@
 	outline: 4px solid black;
 }
 
-..active {
+.active {
 	pointer-events: all;
 }
 
 .component {
-	background-size: contain;
 	pointer-events: none;
+}
+
+* {
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
 }
