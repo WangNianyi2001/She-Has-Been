@@ -1,48 +1,30 @@
 {
 	'use strict';
 
+	const Rootlet = Game.Rootlet;
 	const makeDiv = () => document.createElement('div');
+	const makeRootlet = () => new Rootlet(makeDiv());
 
 	class Cell extends Game.Component {
-		constructor(storyboard, dimension, position, margins) {
+		constructor(storyboard, dimension, position) {
 			super(storyboard, makeDiv(), dimension, position);
-			storyboard.root.appendChild(this.root);
-			this.setClass('component', true);
-			this.setStyle('boxSizing', 'border-box');
-			this.setStyle('font-family', 'sans-serif');
-			this.margins = margins;
+			storyboard.append(this);
+			this.setClass('cell', true);
 			this.screens = new Map();
 			this.current_screen = null;
 		}
-		createScreen(name, background) {
-			const screen = new Screen(this, background);
-			screen.root.style.position = 'absolute';
-			screen.root.style.left = '0';
-			screen.root.style.top = '0';
+		createScreen(prototype, name, background, str) {
+			const screen = new prototype(this, background);
 			this.screens.set(name, screen);
 			screen.hide();
-			this.root.appendChild(screen.root);
-			return screen;
-		}
-		createScreenWithTitle(name, background, str) {
-			const screen = this.createScreen(name, background);
-			screen.root.style.flex = '1';
-			screen.root.style.display = 'flex';
-			screen.root.style.flexDirection = 'column';
-			screen.root.style.position = 'absolute';
-			screen.root.style.overflow = 'hidden';
-			const title = screen.title = makeDiv();
-			title.innerText = str;
-			title.style.height = '35px';
-			title.style.lineHeight = '27px';
-			title.style.textAlign = 'center';
-			screen.root.appendChild(title);
-			const content = screen.content = makeDiv();
-			content.style.flex = '1 1';
-			content.style.display = 'flex';
-			content.style.maxHeight = '351px';
-			content.style.overflowY = 'auto';
-			screen.root.appendChild(content);
+			this.append(screen);
+			const title = screen.title = makeRootlet();
+			title.root.innerText = str;
+			title.setClass('title', true);
+			screen.append(title);
+			const content = screen.content = makeRootlet();
+			content.setClass('content', true);
+			screen.append(content);
 			return screen;
 		}
 		showScreen(name) {
@@ -53,21 +35,42 @@
 			const screen = this.screens.get(name);
 			this.current_screen = screen;
 			screen.show();
-			this.root.style.backgroundImage = screen.background;
+			this.setStyle('backgroundImage', screen.background);
 		}
 	}
-	class Screen {
+	class Screen extends Rootlet {
 		constructor(cell, background) {
+			super(makeDiv());
 			this.cell = cell;
 			this.background = background;
-			const root = this.root = makeDiv();
-			root.style.position = 'relative';
-			root.style.margin = cell.margins.map(_ => _ + 'px').join(' ');
+			this.setClass('screen', true);
 		}
-		show() { this.root.style.visibility = 'visible'; }
-		hide() { this.root.style.visibility = 'hidden'; }
+		show() { this.root.classList.add('visible'); }
+		hide() { this.root.classList.remove('visible'); }
 	}
 
+	class Moment extends Screen {
+		constructor(cell, background) {
+			super(cell, background);
+			this.setClass('moment', true);
+		}
+		addMoment(avatar_bg, str) {
+			const entry = makeRootlet();
+			this.content.append(entry);
+			entry.setClass('entry');
+			const avatar = makeRootlet();
+			entry.append(avatar);
+			avatar.setClass('avatar');
+			avatar.setStyle('backgroundImage', avatar_bg);
+			const text = makeRootlet();
+			text.setClass('text');
+			entry.append(text);
+			text.root.innerText = str;
+		}
+	}
+
+	Cell.Screen = Screen;
+	Cell.Moment = Moment;
 	window.Cell = Cell;
 }
 

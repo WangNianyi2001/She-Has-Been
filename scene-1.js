@@ -23,48 +23,28 @@
 	foreground.setStyle('backgroundImage', 'url(resource/scene-1/foreground.png)');
 	const cell_hotarea = scene.createComponent([50, 50], [470, 235, 0]);
 
-	const cell = new Cell(scene, [746 / 3, 1380 / 3], [960 - 746 / 3, 540 - 1380 / 3, 0], [32, 25, 42, 22]);
+	const cell = new Cell(scene, [746 / 3, 1380 / 3], [960 - 746 / 3, 540 - 1380 / 3, 0]);
 	cell.setStyle('visibility', 'hidden');
-	const moment = cell.createScreenWithTitle(
+	const moment = cell.createScreen(
+		Cell.Moment,
 		'moment',
 		'url(resource/cell/moment.png)',
 		'朋友圈'
 	);
-	const post = cell.createScreen('post', 'url(resource/cell/post.png)').root;
+	const post = cell.createScreen(
+		Cell.Screen,
+		'post',
+		'url(resource/cell/post.png)',
+		''
+	).root;
 		const input = makeDiv();
-	const chat = cell.createScreenWithTitle(
+	const chat = cell.createScreen(
+		Cell.Screen,
 		'chat',
 		'url(resource/cell/chat.png)',
 		'聊天'
 	);
 
-	function initMoment() {
-		moment.content.style.flexDirection = 'column-reverse';
-		moment.content.style.justifyContent = 'flex-end';
-	}
-	function addMoment(avatar_bg, str) {
-		const _moment = makeDiv();
-		moment.content.appendChild(_moment);
-		_moment.style.borderBottom = '1px solid black';
-		_moment.style.paddingBottom = '10px';
-		_moment.style.height = 'max-content';
-		_moment.style.display = 'flex';
-		_moment.style.alignItems = 'top';
-		_moment.style.margin = '10px 10px 0';
-		const avatar = makeDiv();
-		_moment.appendChild(avatar);
-		{
-			avatar.style.width = avatar.style.minWidth = avatar.style.height = '40px';
-			avatar.style.backgroundImage = avatar_bg;
-			avatar.style.backgroundSize = 'contain';
-			avatar.style.marginRight = '10px';
-		}
-		const text = makeDiv();
-		_moment.appendChild(text);
-		text.style.height = 'max-content';
-		text.style.wordBreak = 'break-all';
-		text.innerText = str;
-	}
 	let current_cell_alert = null;
 	function cellAlert(str) {
 		const cell_alert = makeDiv();
@@ -92,25 +72,20 @@
 		input.style.height = '100%';
 		input.style.boxSizing = 'border-box';
 		input.style.wordBreak = 'break-all';
-		input.style.padding = '42px 25px 42px 22px';
+		input.style.padding = '10px';
 		post.appendChild(input);
 	}
 
 	// Action sequence
 	scene.addAction(cell_hotarea.toWaitForClick());
-	scene.addAction(cb => {
-		initMoment();
+	scene.addInstantAction(() => {
 		cell.showScreen('moment');
 		cell.setStyle('visibility', 'visible');
-		moments.forEach(_ => addMoment(..._));
-		cb();
+		moments.forEach(_ => moment.addMoment(..._));
 	});
 	scene.addAction(cell.toWaitForClick());
-	scene.addAction(cb => {
-		initPost();
-		cell.showScreen('post');
-		cb();
-	});
+	scene.addInstantAction(initPost);
+	scene.addInstantAction(() => cell.showScreen('post'));
 	scene.addAction(cb => {
 		let i = 0;
 		function handler() {
@@ -124,11 +99,8 @@
 		document.addEventListener('keydown', handler);
 	});
 	scene.addAction(cell.toWaitForClick());
-	scene.addAction(cb => {
-		cell.showScreen('moment');
-		addMoment('url(resource/cell/avatar/1.png)', post_text);
-		cb();
-	});
+	scene.addInstantAction(() => cell.showScreen('moment'));
+	scene.addInstantAction(() => moment.addMoment('url(resource/cell/avatar/1.png)', post_text));
 	scene.addAction(cb => {
 		cellAlert(alert_text);
 		current_cell_alert.style.cursor = 'pointer';
@@ -150,18 +122,12 @@
 		const dialogue = makeDiv();
 		dialogue.innerText = str;
 		dialogue.style.textAlign = self ? 'left' : 'right';
-		chat.content.appendChild(dialogue);
+		chat.content.append(dialogue);
 	}
-	scene.addAction(cb => {
-		chat.content.style.flexDirection = 'column';
-		cb();
-	});
+	scene.addInstantAction(() => chat.content.setStyle('flexDirection', 'column'));
 	for(const dialogue of dialogues) {
 		scene.addAction(cell.toWaitForClick());
-		scene.addAction(cb => {
-			addDialogue(...dialogue);
-			cb();
-		});
+		scene.addInstantAction(() => addDialogue(...dialogue));
 	}
 	scene.addAction(cell.toWaitForClick());
 

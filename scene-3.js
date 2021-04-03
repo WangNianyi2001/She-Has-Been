@@ -6,18 +6,13 @@
 	scene.setStyle('perspective', '100px');
 
 	// Resources
-	const foreground = scene.createComponent([960, 1080/2], [20, 30, 10]);
-	foreground.setStyle('backgroundImage', 'url("resource/scene-3/character.png")');
-	foreground.setStyle('zIndex', '10');
-	foreground.setStyle('pointerEvents', 'none');
 	const background = scene.createComponent([960, 1080/2], [0, 0, 0]);
 	background.setStyle('backgroundImage', 'url("resource/scene-3/desktop.png")');
 	background.setStyle('backgroundSize', 'cover');
 	background.setStyle('backgroundPosition', 'center center');
-	const cell = new Cell(scene, [746 / 3, 1380 / 3], [960 - 746 / 3, 540 - 1380 / 3, 0], [32, 25, 42, 22]);
-	cell.setStyle('visibility', 'hidden');
-	cell.setStyle('zIndex', '1');
-	const chat = cell.createScreen('chat', 'url(resource/cell/chat.png)').root;
+	const foreground = scene.createComponent([960, 1080/2], [20, 30, 10]);
+	foreground.setStyle('backgroundImage', 'url("resource/scene-3/character.png")');
+	foreground.setStyle('pointerEvents', 'none');
 
 	// const mail = scene.createComponent([67,59],[0,0,0]);
 	// mail.setStyle('backgroundImage','url(resource/mail.jpg)');
@@ -97,6 +92,14 @@
 			++i;
 		}, 500);
 	});
+	const cell = new Cell(scene, [746 / 3, 1380 / 3], [960 - 746 / 3, 540 - 1380 / 3, 0], [32, 25, 42, 22]);
+	cell.setStyle('visibility', 'hidden');
+	const chat = cell.createScreen(
+		Cell.Screen,
+		'chat',
+		'url(resource/cell/chat.png)',
+		'聊天'
+	);
 	const hot_area = scene.createComponent([70, 100], [20, 180, 0]);
 	scene.addAction(hot_area.toWaitForClick());
 	scene.addAction(cb => {

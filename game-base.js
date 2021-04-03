@@ -11,8 +11,14 @@
 			this.setStyle('width', dimension[0] + 'px');
 			this.setStyle('height', dimension[1] + 'px');
 		}
-		setClass(classname, toggle) { this.root.classList[toggle ? 'add' : 'remove'](classname); }
+		setClass(classname, toggle = true) { this.root.classList[toggle ? 'add' : 'remove'](classname); }
 		triggerOnce(event_name, fn) { this.root.addEventListener(event_name, fn, { once: true }); }
+		append(child) {
+			if(child instanceof Rootlet)
+				this.root.appendChild(child.root);
+			else
+				this.root.appendChild(child);
+		}
 	};
 
 	class Game extends Rootlet {
@@ -76,6 +82,7 @@
 			return component;
 		}
 		addAction(action) { this.actions.push(action); }
+		addInstantAction(action) { this.actions.push(cb => (action(), cb())); }
 		deploy() {
 			const cb = () => this.actions.length && this.actions.shift()(cb);
 			cb();
@@ -107,6 +114,7 @@
 		}; }
 	}
 
+	Game.Rootlet = Rootlet;
 	Game.Component = Component;
 	Game.Storyboard = Storyboard;
 	Game.toDelay = second => cb => setTimeout(cb, second * 1e3);

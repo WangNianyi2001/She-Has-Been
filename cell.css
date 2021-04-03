@@ -1,0 +1,61 @@
+.cell {
+	box-sizing: border-box;
+	font-family: sans-serif;
+	z-index: 10;
+}
+
+.screen {
+	position: absolute;
+	left: 0;
+	top: 0;
+	margin: 32px 25px 42px 22px;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	overflow: hidden;
+	visibility: hidden;
+}
+
+.screen.visible { visibility: visible; }
+
+.screen > .title {
+	height: 35px;
+	line-height: 27px;
+	text-align: center;
+}
+
+.screen > .content {
+	flex: 1 1;
+	display: flex;
+	width: 202px;
+	max-height: 351px;
+	overflow-y: auto;
+}
+
+.screen.moment > .content {
+	flex-direction: column-reverse;
+	justify-content: flex-end;
+}
+
+.screen.moment .entry {
+	border-bottom: 1px solid black;
+	padding-bottom: 10px;
+	height: max-content;
+	display: flex;
+	align-items: top;
+	margin: 10px 10px 0;
+}
+
+.screen.moment .avatar {
+	width: 40px;
+	height: 40px;
+	min-width: 40px;
+	min-height: 40px;
+	background-size: contain;
+	margin-right: 10px;
+}
+
+.screen.moment .text {
+	height: max-content;
+	word-break: break-all;
+}
