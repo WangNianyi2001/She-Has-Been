@@ -2,7 +2,7 @@
 	'use strict';
 
 	// Declaration
-	const scene = game.createStoryboard('Scene 3', [960, 540], [972, 0, 0]);
+	const scene = game.createStoryboard('Scene 3', [960, 540], [1944, 0, 0]);
 	scene.setStyle('perspective', '100px');
 
 	// Resources
@@ -12,26 +12,33 @@
 	background.setStyle('backgroundImage', 'url("resource/scene-3/desktop.png")');
 	background.setStyle('backgroundSize', 'cover');
 	background.setStyle('backgroundPosition', 'center center');
+	const cell = new Cell(scene, [746 / 3, 1380 / 3], [960 - 746 / 3, 540 - 1380 / 3, 0], [32, 25, 42, 22]);
+	cell.setStyle('visibility', 'hidden');
+	cell.setStyle('zIndex', '1');
+	const chat = cell.createScreen('chat', 'url(resource/cell/chat.png)').root;
+
 	// const mail = scene.createComponent([67,59],[0,0,0]);
 	// mail.setStyle('backgroundImage','url(resource/mail.jpg)');
 
-	function move(component, x, y) {
-	    component.setStyle('transform', `translate3d(${x}px, ${y}px, 0px)`);
+	function move(component, x, y, angle = 0) {
+	    component.setStyle('transform', `translate3d(${x}px, ${y}px, 0px) rotate(${angle}rad)`);
 	}
 	
+	
 	const R = 1500;
-	function createMail() { 
+	function createMail(url) { 
 		const angle = (1 + Math.random()) * Math.PI;
-		const mail = scene.createComponent([50, 50], [Math.cos(angle) * R, Math.sin(angle) * R, 0]);
-		mail.setStyle('backgroundColor', `rgb(${[0,0,0].map(_ => Math.random() * 256).join(', ')})`);
+		const mail = scene.createComponent([200, 200], [Math.cos(angle) * R, Math.sin(angle) * R, 0]);
+		mail.setStyle('backgroundImage', `url(${url})`);
 		mail.setStyle('transitionDuration', '1s');
+		mail.setStyle('transformOrigin', 'center center');
 		return mail;
 	}
 	const progress = scene.createComponent([350, 50], [0, 0, 0]);
 	// progress.setStyle('backgroundPosition','center 0');
 	progress.root.setAttribute('style', `
-		left: 10px;
-		top: 10px;
+		left: 600px;
+		top: 500px;
 		display: flex;
 		padding: 2px;
 		width: 350px;
@@ -55,11 +62,10 @@
 	// scene.addAction(mail.toWaitForClick());
 	let line = 0;
 	scene.addAction(Game.toDelay(1));
-	const mails = [0, 0, 0, 0, 0].map(createMail);
-	for(let i = 0; i < 5; ++i) {
-		const mail = mails[i];
+	const mails = Array(9).fill(0).map((_, i) => createMail(`resource/scene-3/files/${i}.png`));
+	for(const mail of mails) {
 		scene.addAction(cb => {
-			move(mail, 480, 270);
+			move(mail, 480, 140);
 			cb();
 		});
 		scene.addAction(mail.toWaitForClick());
@@ -68,11 +74,11 @@
 			cb();
 		});
 		scene.addAction(cb => {
-			bar.style.flex = line / 5;
+			bar.style.flex = line / mails.length;
 			cb();
 		});
 		scene.addAction(cb => {
-			move(mail, 280, 200);
+			move(mail, 750 + (Math.random() - .5) * 50, 100 + (Math.random() - .5) * 50, Math.random() - .5);
 			cb();
 		});
 		
@@ -89,4 +95,14 @@
 			++i;
 		}, 500);
 	});
+	const hot_area = scene.createComponent([70, 100], [20, 180, 0]);
+	hot_area.setStyle('backgroundColor', 'rgba(255, 0, 0, .5)');
+	scene.addAction(hot_area.toWaitForClick());
+	scene.addAction(cb => {
+		cell.showScreen('chat');
+		cell.setStyle('visibility', 'visible');
+		cb();
+	});
+	
+
 }
