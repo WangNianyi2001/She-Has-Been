@@ -1,6 +1,7 @@
 {
 	'use strict';
 
+	// Configurations
 	const moments = [
 		['url(resource/cell/avatar/wlt.png)', '我是 HHL'],
 		['url(resource/cell/avatar/sparrow.png)', '楼下是沙壁'],
@@ -30,7 +31,7 @@
 	foreground.setStyle('backgroundImage', 'url(resource/scene-1/foreground.png)');
 	const cell_hotarea = scene.createComponent([50, 50], [470, 235, 0]);
 
-	const cell = new Cell(scene, [746 / 3, 1380 / 3], [960 - 746 / 3, 540 - 1380 / 3, 0]);
+	const cell = new Cell(scene, [960 - 746 / 3, 540 - 1380 / 3, 0]);
 	cell.setStyle('visibility', 'hidden');
 	const moment = cell.createScreen(
 		Cell.Moment,

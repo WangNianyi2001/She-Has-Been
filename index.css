@@ -1,3 +1,8 @@
+* {
+	position: relative;
+	user-select: none;
+}
+
 html, body {
 	margin: 0;
 	width: 100%;
@@ -6,7 +11,6 @@ html, body {
 }
 
 body {
-	position: relative;
 	background-color: lightgray;
 }
 

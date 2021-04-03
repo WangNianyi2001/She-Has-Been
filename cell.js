@@ -2,12 +2,10 @@
 	'use strict';
 
 	const Rootlet = Game.Rootlet;
-	const makeDiv = () => document.createElement('div');
-	const makeRootlet = () => new Rootlet(makeDiv());
 
 	class Cell extends Game.Component {
-		constructor(storyboard, dimension, position) {
-			super(storyboard, makeDiv(), dimension, position);
+		constructor(storyboard, position) {
+			super(storyboard, Game.makeDiv(), Cell.dimension, position);
 			storyboard.append(this);
 			this.setClass('cell');
 			this.screens = new Map();
@@ -19,11 +17,11 @@
 			this.screens.set(name, screen);
 			screen.hide();
 			this.append(screen);
-			const title = screen.title = makeRootlet();
+			const title = screen.title = Game.makeRootlet();
 			title.root.innerText = str;
 			title.setClass('title');
 			screen.append(title);
-			const content = screen.content = makeRootlet();
+			const content = screen.content = Game.makeRootlet();
 			content.setClass('content');
 			screen.append(content);
 			return screen;
@@ -44,7 +42,7 @@
 		alert(str) {
 			if(this.current_alert)
 				this.removeAlert();
-			const alert = makeRootlet();
+			const alert = Game.makeRootlet();
 			this.current_alert = alert;
 			alert.root.innerText = str;
 			alert.setClass('alert');
@@ -58,9 +56,11 @@
 			this.current_alert = null;
 		}
 	}
+	Cell.dimension = [746 / 3, 1380 / 3];
+
 	class Screen extends Rootlet {
 		constructor(cell, background) {
-			super(makeDiv());
+			super(Game.makeDiv());
 			this.cell = cell;
 			this.background = background;
 			this.setClass('screen');
@@ -75,14 +75,14 @@
 			this.setClass('moment');
 		}
 		addMoment(avatar_bg, str) {
-			const entry = makeRootlet();
+			const entry = Game.makeRootlet();
 			this.content.append(entry);
 			entry.setClass('entry');
-			const avatar = makeRootlet();
+			const avatar = Game.makeRootlet();
 			entry.append(avatar);
 			avatar.setClass('avatar');
 			avatar.setStyle('backgroundImage', avatar_bg);
-			const text = makeRootlet();
+			const text = Game.makeRootlet();
 			text.setClass('text');
 			entry.append(text);
 			text.root.innerText = str;
@@ -95,7 +95,7 @@
 			this.setClass('chat');
 		}
 		addDialogue(self, str) {
-			const chat = makeRootlet();
+			const chat = Game.makeRootlet();
 			chat.root.innerHTML = [
 				'<div class="before"></div>',
 				`<div class="body">${str}</div>`,

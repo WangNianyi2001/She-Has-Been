@@ -120,5 +120,7 @@
 	Game.Component = Component;
 	Game.Storyboard = Storyboard;
 	Game.toDelay = second => cb => setTimeout(cb, second * 1e3);
+	Game.makeDiv = () => document.createElement('div');
+	Game.makeRootlet = () => new Rootlet(Game.makeDiv());
 	window.Game = Game;
 }
