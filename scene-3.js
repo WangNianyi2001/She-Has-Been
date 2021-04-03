@@ -3,7 +3,7 @@
 
 	// Configurations
 	const width = 960, height = 540;
-	const file_count = 3;
+	const file_count = 8;
 	const file_anchor = [280, 140];
 	const dialogues = [
 		// true - self, false - opposite
@@ -20,10 +20,10 @@
 
 	// Resources
 	const background = scene.createComponent([width, height], [0, 0, 0]);
-	background.setStyle('backgroundImage', 'url("resource/scene-3/desktop.png")');
+	background.setStyle('backgroundImage', 'url(resource/scene-3/desktop.png)');
 	background.setStyle('backgroundSize', 'cover');
 	const foreground = scene.createComponent([width, height], [20, 30, 10]);
-	foreground.setStyle('backgroundImage', 'url("resource/scene-3/character.png")');
+	foreground.setStyle('backgroundImage', 'url(resource/scene-3/character.png)');
 	foreground.setStyle('pointerEvents', 'none');
 	foreground.setStyle('zIndex', '100');
 	const progress = scene.createComponent([350, 50], [0, 0, 0]);
@@ -123,10 +123,17 @@
 	});
 	const first_dialogue = dialogues.shift();
 	scene.addInstantAction(() => chat.addDialogue(...first_dialogue));
-	scene.addAction(cell.toWaitForClick());
 	for(const dialogue of dialogues) {
 		scene.addAction(dialogue[0] ? cell.toWaitForClick() : Game.toDelay(1));
 		scene.addInstantAction(() => chat.addDialogue(...dialogue));
 	}
 	scene.addAction(cell.toWaitForClick());
+
+	// End
+	scene.addAction(cb => {
+		game.focusOn('Scene 4');
+		game.updateViewport();
+		game.activate('Scene 4');
+		cb();
+	});
 }
