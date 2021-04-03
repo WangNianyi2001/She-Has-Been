@@ -71,7 +71,6 @@
 	scene.addAction(sunset.toWaitForClick());
 	
 	const cell = new Cell(scene, [width - Cell.dimension[0], height, 0]);
-	cell.setStyle('visibility', 'hidden');
 	const chat = cell.createScreen(
 		Cell.Chat,
 		'chat',
@@ -80,7 +79,6 @@
 	);
 	scene.addInstantAction(() => {
 		cell.showScreen('chat');
-		cell.setStyle('visibility', 'visible');
 		cell.setStyle('transform', `translate3d(${
 			[width - Cell.dimension[0], height - Cell.dimension[1], 0]
 				.map(_ => _ + 'px')

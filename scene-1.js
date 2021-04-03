@@ -37,7 +37,6 @@
 	scene.addAction(cell_hotarea.toWaitForClick());
 
 	const cell = new Cell(scene, [width - Cell.dimension[0], height, 0]);
-	cell.setStyle('visibility', 'hidden');
 	const moment = cell.createScreen(
 		Cell.Moment,
 		'moment',
@@ -58,7 +57,6 @@
 	);
 	scene.addInstantAction(() => {
 		cell.showScreen('moment');
-		cell.setStyle('visibility', 'visible');
 		cell.setStyle('transform', `translate3d(${
 			[width - Cell.dimension[0], height - Cell.dimension[1], 0]
 				.map(_ => _ + 'px')
