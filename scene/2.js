@@ -3,7 +3,7 @@
 
 	// Configurations
 	const width = 855, height = 540;
-	const zooming_duration = 1;
+	const zooming_duration = 2;
 	const delay_interval = .5;
 	const dialogues = [
 		// true - self, false - opposite

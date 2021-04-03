@@ -27,10 +27,23 @@
 	scene.setStyle('perspective', '100px');
 
 	// Resources
-	const background = scene.createComponent([width, height], [0, 0, -10]);
+	const background = scene.createComponent([width, height], [0, 0, 0]);
 	background.setStyle('backgroundImage', 'url(resource/scene-1/background.png)');
-	const foreground = scene.createComponent([width, height], [0, 0, 0]);
+	background.setStyle('transitionDuration', '.5s');
+	const foreground = scene.createComponent([width, height], [0, 0, 3]);
 	foreground.setStyle('backgroundImage', 'url(resource/scene-1/foreground.png)');
+	foreground.setStyle('transitionDuration', '.5s');
+
+	function wiggle() {
+		foreground.setStyle('transform', `translate3d(${
+			[10, 5].map(v => v * (Math.random() - .5) + 'px').join(', ')
+		}, 3px)`);
+		background.setStyle('transform', `translate3d(${
+			[5, 2].map(v => v * (Math.random() - .5) + 'px').join(', ')
+		}, 0px)`);
+		setTimeout(wiggle, Math.random() * 500);
+	}
+	wiggle();
 
 	// Action sequence
 	const cell_hotarea = scene.createComponent([50, 50], [470, 235, 0]);
