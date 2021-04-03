@@ -7,14 +7,12 @@
 
 	// Resources
 	const foreground = scene.createComponent([960, 540], [0, 0, 0]);
-	foreground.setStyle('background-image', 'url(../resources/front.png)');
+	foreground.setStyle('backgroundImage', 'url(resource/fo.png)');
 	const background = scene.createComponent([960, 540], [0, 0, -10]);
-	background.setStyle('background-image', 'url(../resources/back.png)');
+	background.setStyle('backgroundImage', 'url(resource/back.png)');
 
 	// Action sequence
-	scene.actions = [
-		foreground.toWaitForClick(),
-	];
+	scene.addAction(foreground.toWaitForClick());
 
 	// Instant actions
 	game.focusOn('Scene 1');

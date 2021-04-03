@@ -75,6 +75,7 @@
 			component.setClass('component', true);
 			return component;
 		}
+		addAction(action) { this.actions.push(action); }
 		deploy() {
 			const cb = () => this.actions.length && this.actions.shift()(cb);
 			cb();
