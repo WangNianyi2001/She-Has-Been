@@ -8,6 +8,8 @@
 	// Resources
 	const foreground = scene.createComponent([960, 1080/2], [20, 30, 10]);
 	foreground.setStyle('backgroundImage', 'url("resource/scene-3/character.png")');
+	foreground.setStyle('zIndex', '10');
+	foreground.setStyle('pointerEvents', 'none');
 	const background = scene.createComponent([960, 1080/2], [0, 0, 0]);
 	background.setStyle('backgroundImage', 'url("resource/scene-3/desktop.png")');
 	background.setStyle('backgroundSize', 'cover');
