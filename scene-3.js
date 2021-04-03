@@ -59,26 +59,17 @@
 	// scene.addAction(mail.toWaitForClick());
 	let line = 0;
 	scene.addAction(Game.toDelay(1));
-	const mails = Array(8).fill(0).map((_, i) => createMail(`resource/scene-3/files/${i}.png`));
+	const mails = Array(3).fill(0).map((_, i) => createMail(`resource/scene-3/files/${i}.png`));
 	for(const mail of mails) {
-		scene.addAction(cb => {
-			move(mail, 480, 140);
-			cb();
-		});
+		scene.addInstantAction(() => move(mail, 480, 140));
 		scene.addAction(mail.toWaitForClick());
-		scene.addAction(cb => {
-			line = line + 1;
-			cb();
-		});
-		scene.addAction(cb => {
-			bar.style.flex = line / mails.length;
-			cb();
-		});
-		scene.addAction(cb => {
-			move(mail, 750 + (Math.random() - .5) * 50, 100 + (Math.random() - .5) * 50, Math.random() - .5);
-			cb();
-		});
-		
+		scene.addInstantAction(() => line = ++line);
+		scene.addInstantAction(() => bar.style.flex = line / mails.length);
+		scene.addAction(() => move(mail,
+			750 + (Math.random() - .5) * 50,
+			100 + (Math.random() - .5) * 50,
+			Math.random() - .5
+		));
 	}
 	scene.addAction(cb => {
 		cb();
@@ -102,9 +93,8 @@
 	);
 	const hot_area = scene.createComponent([70, 100], [20, 180, 0]);
 	scene.addAction(hot_area.toWaitForClick());
-	scene.addAction(cb => {
+	scene.addInstantAction(() => {
 		cell.showScreen('chat');
 		cell.setStyle('visibility', 'visible');
-		cb();
 	});
 }
