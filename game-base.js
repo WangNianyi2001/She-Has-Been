@@ -66,7 +66,7 @@
 			this.dimension = dimension;
 			this.setDimension(dimension);
 			this.position = position;
-			this.setStyle('transform', `translate(${position.map(v => v + 'px').join(', ')})`);
+			this.setStyle('transform', `translate3d(${position.map(v => v + 'px').join(', ')})`);
 			this.actions = [];
 		}
 		createComponent(dimension, position) {
@@ -109,6 +109,7 @@
 		}; }
 	}
 
+	Game.Component = Component;
 	Game.Storyboard = Storyboard;
 	Game.toDelay = second => cb => setTimeout(cb, second * 1e3);
 	window.Game = Game;

@@ -2,14 +2,14 @@
 	'use strict';
 
 	// Declaration
-	const scene = game.createStoryboard('Scene 3', [960, 540], [0, 0, 0]);
+	const scene = game.createStoryboard('Scene 3', [960, 540], [972, 0, 0]);
 	scene.setStyle('perspective', '100px');
 
 	// Resources
 	const foreground = scene.createComponent([960, 1080/2], [20, 30, 10]);
-	foreground.setStyle('backgroundImage', 'url("resource/3-fore.png")');
+	foreground.setStyle('backgroundImage', 'url("resource/scene-3/3-fore.png")');
 	const background = scene.createComponent([960, 1080/2], [0, 0, 0]);
-	background.setStyle('backgroundImage', 'url("resource/3-back.jpg")');
+	background.setStyle('backgroundImage', 'url("resource/scene-3/3-back.jpg")');
 	background.setStyle('backgroundSize', 'cover');
 	background.setStyle('backgroundPosition', 'center center');
 	// const mail = scene.createComponent([67,59],[0,0,0]);
@@ -89,9 +89,4 @@
 			++i;
 		}, 500);
 	});
-
-	// Instant actions
-	game.focusOn('Scene 3');
-	game.updateViewport();
-	game.activate('Scene 3');
 }
