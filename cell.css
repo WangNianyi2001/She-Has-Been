@@ -65,6 +65,7 @@
 
 .chat .content {
 	padding: 10px;
+	flex-direction: column;
 }
 
 .dialogue {

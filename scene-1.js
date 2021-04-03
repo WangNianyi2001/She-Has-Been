@@ -31,7 +31,10 @@
 	background.setStyle('backgroundImage', 'url(resource/scene-1/background.png)');
 	const foreground = scene.createComponent([width, height], [0, 0, 0]);
 	foreground.setStyle('backgroundImage', 'url(resource/scene-1/foreground.png)');
+
+	// Action sequence
 	const cell_hotarea = scene.createComponent([50, 50], [470, 235, 0]);
+	scene.addAction(cell_hotarea.toWaitForClick());
 
 	const cell = new Cell(scene, [width - Cell.dimension[0], height, 0]);
 	cell.setStyle('visibility', 'hidden');
@@ -53,9 +56,6 @@
 		'url(resource/cell/screen/chat.png)',
 		'聊天'
 	);
-
-	// Action sequence
-	scene.addAction(cell_hotarea.toWaitForClick());
 	scene.addInstantAction(() => {
 		cell.showScreen('moment');
 		cell.setStyle('visibility', 'visible');
@@ -88,17 +88,19 @@
 	scene.addInstantAction(() => cell.showScreen('moment'));
 	scene.addInstantAction(() => moment.addMoment('url(resource/cell/avatar/1.png)', post_text));
 	scene.addAction(Game.toDelay(message_delay));
+	const first_dialogue = dialogues.shift();
 	scene.addAction(cb => {
-		cell.alert(dialogues[0][1]);
+		cell.alert(first_dialogue[1]);
 		cell.current_alert.setStyle('cursor', 'pointer');
 		cell.current_alert.triggerOnce('click', () => {
 			cell.showScreen('chat');
 			cb();
 		});
 	});
-	scene.addInstantAction(() => chat.content.setStyle('flexDirection', 'column'));
+	scene.addInstantAction(() => chat.addDialogue(...first_dialogue));
+	scene.addAction(cell.toWaitForClick());
 	for(const dialogue of dialogues) {
-		scene.addAction(cell.toWaitForClick());
+		scene.addAction(dialogue[0] ? cell.toWaitForClick() : Game.toDelay(1));
 		scene.addInstantAction(() => chat.addDialogue(...dialogue));
 	}
 	scene.addAction(cell.toWaitForClick());
