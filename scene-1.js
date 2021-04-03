@@ -157,4 +157,12 @@
 			cb();
 		}, { once: true });
 	});
+
+	// End
+	scene.addAction(cb => {
+		game.focusOn('Scene 2');
+		game.updateViewport();
+		game.activate('Scene 2');
+		cb();
+	});
 }

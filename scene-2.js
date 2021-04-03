@@ -19,7 +19,6 @@
 	character.style.height = '355px';
 	character.style.transform = 'translate3d(100px, 185px, 0px)'
 	character.style.backgroundImage = 'url(resource/scene-2/character-1.png)';
-	
 
 	// Action sequence
 	scene.addAction(foreground.toWaitForClick());
@@ -38,5 +37,12 @@
 		background.setStyle('transform', 'translate3d(50px, 50px, 30px)');
 		cb();
 	});
-	  
+
+	// End
+	scene.addAction(cb => {
+		game.focusOn('Scene 3');
+		game.updateViewport();
+		game.activate('Scene 3');
+		cb();
+	});
 }
