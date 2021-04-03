@@ -9,7 +9,6 @@
 			storyboard.root.appendChild(this.root);
 			this.setClass('component', true);
 			this.setStyle('boxSizing', 'border-box');
-			this.setStyle('pointer-events', 'all');
 			this.setStyle('display', 'flex');
 			this.setStyle('flex-direction', 'column');
 			this.setStyle('font-family', 'sans-serif');

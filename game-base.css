@@ -2,21 +2,17 @@
 	position: absolute;
 	left: 0;
 	top: 0;
-	pointer-events: none;
 }
 
 .storyboard {
 	transform-style: preserve-3d;
 	transform-origin: center center;
 	outline: 4px solid black;
+	pointer-events: none;
 }
 
 .active {
 	pointer-events: all;
-}
-
-.component {
-	pointer-events: none;
 }
 
 * {

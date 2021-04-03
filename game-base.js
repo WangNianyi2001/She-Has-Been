@@ -100,10 +100,8 @@
 		}; }
 		toWaitForClick() { return cb => {
 			this.setStyle('cursor', 'pointer');
-			this.setStyle('pointer-events', 'all');
 			this.triggerOnce('click', () => {
 				this.setStyle('cursor', 'auto');
-				this.setStyle('pointer-events', 'none');
 				cb();
 			});
 		}; }
