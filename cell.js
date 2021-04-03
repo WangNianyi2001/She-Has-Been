@@ -41,6 +41,7 @@
 			this.cell = cell;
 			this.background = background;
 			const root = this.root = makeDiv();
+			root.style.position = 'relative';
 			root.style.margin = cell.margins.map(_ => _ + 'px').join(' ');
 		}
 		show() { this.root.style.display = 'flex'; }

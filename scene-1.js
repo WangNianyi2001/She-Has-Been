@@ -11,7 +11,6 @@
 	const background = scene.createComponent([960, 540], [0, 0, -10]);
 	background.setStyle('backgroundImage', 'url(resource/scene-1/background.png)');
 	const cell_hotarea = scene.createComponent([50, 50], [470, 235, 0]);
-	cell_hotarea.setStyle('backgroundColor', 'rgba(255, 0, 0, .5)');
 
 	const cell = new Cell(scene, [746 / 3, 1380 / 3], [960 - 746 / 3, 540 - 1380 / 3, 0], [32, 25, 42, 22]);
 	cell.setStyle('visibility', 'hidden');
@@ -40,6 +39,9 @@
 		{
 			content.style.flex = '1';
 			content.style.overflowY = 'scroll';
+			content.style.display = 'flex';
+			content.style.flexDirection = 'column-reverse';
+			content.style.justifyContent = 'flex-end';
 		}
 	}
 	function addMoment(avatar_bg, str) {
@@ -70,7 +72,8 @@
 	const current_cell_alert = null;
 	function cellAlert(str) {
 		const cell_alert = makeDiv();
-		moment.appendChild(cell_alert);
+		console.log(cell);
+		cell.current_screen.root.appendChild(cell_alert);
 		cell_alert.style.position = 'absolute';
 		cell_alert.style.top = cell_alert.style.left = '0';
 		cell_alert.style.height = cell_alert.style.lineHeight = '60px';
@@ -78,6 +81,7 @@
 		cell_alert.style.padding = '0px 16px';
 		cell_alert.style.boxShadow = '0px 4px 5px rgba(0,0,0,.5)';
 		cell_alert.style.boxSizing = 'border-box';
+		cell_alert.style.borderRadius = '8px';
 		cell_alert.style.backgroundColor = 'lightgray';
 		cell_alert.innerText = str;
 	}
@@ -90,11 +94,11 @@
 	scene.addAction(cell_hotarea.toWaitForClick());
 	scene.addAction(cb => {
 		initMoment();
-		cell.setStyle('visibility', 'visible');
 		cell.showScreen('moment');
+		cell.setStyle('visibility', 'visible');
 		[
 			['url(resource/cell/avatar/wlt.png)', '我是 HHL'],
-			['url(resource/cell/avatar/sparrow.png)', '楼上是沙壁'],
+			['url(resource/cell/avatar/sparrow.png)', '楼下是沙壁'],
 			['url(resource/cell/avatar/shasha.png)', '真的吗？我不信'],
 		].forEach(_ => addMoment(..._));
 		cb();
@@ -104,6 +108,7 @@
 		title.addEventListener('click', () => {
 			title.style.cursor = 'auto';
 			cell.showScreen('post');
+			cellAlert('something');
 			cb();
 		}, { once: true });
 	});

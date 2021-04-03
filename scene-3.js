@@ -7,9 +7,9 @@
 
 	// Resources
 	const foreground = scene.createComponent([960, 1080/2], [20, 30, 10]);
-	foreground.setStyle('backgroundImage', 'url("resource/scene-3/3-fore.png")');
+	foreground.setStyle('backgroundImage', 'url("resource/scene-3/character.png")');
 	const background = scene.createComponent([960, 1080/2], [0, 0, 0]);
-	background.setStyle('backgroundImage', 'url("resource/scene-3/3-back.jpg")');
+	background.setStyle('backgroundImage', 'url("resource/scene-3/desktop.png")');
 	background.setStyle('backgroundSize', 'cover');
 	background.setStyle('backgroundPosition', 'center center');
 	// const mail = scene.createComponent([67,59],[0,0,0]);
