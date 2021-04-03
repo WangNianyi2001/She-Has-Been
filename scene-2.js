@@ -21,16 +21,14 @@
 		foreground.setStyle('backgroundImage', 'url(resource/scene-2/curtain-open.png)');
 		foreground.setStyle('transform', 'translate3d(0px, 0px, 0px)');
 		background.setStyle('transform', 'translate3d(0px, 0px, 0px)');
-		foreground.setStyle('transitionProperty', 'all');
-		background.setStyle('transitionProperty', 'all');
+		foreground.setStyle('transitionDuration', td);
+		background.setStyle('transitionDuration', td);
 		cb();
 	});
 	scene.addAction(Game.toDelay(1));
 	scene.addAction(cb => {
-		foreground.setStyle('transitionDuration', td);
-		background.setStyle('transitionDuration', td);
-		foreground.setStyle('transform', 'translate3d(0px, 0px, -10px)');
-		background.setStyle('transform', 'translate3d(0px, 0px, -10px)');
+		foreground.setStyle('transform', 'translate3d(0px, 0px, 10px)');
+		background.setStyle('transform', 'translate3d(0px, 0px, 10px)');
 		cb();
 	});
 }

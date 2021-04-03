@@ -9,6 +9,7 @@
 	transform-origin: center center;
 	outline: 4px solid black;
 	pointer-events: none;
+	overflow: hidden;
 }
 
 .active {
