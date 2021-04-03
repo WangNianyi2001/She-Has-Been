@@ -11,14 +11,25 @@
 			this.setStyle('width', dimension[0] + 'px');
 			this.setStyle('height', dimension[1] + 'px');
 		}
-		setClass(classname, toggle = true) { this.root.classList[toggle ? 'add' : 'remove'](classname); }
-		triggerOnce(event_name, fn) { this.root.addEventListener(event_name, fn, { once: true }); }
 		append(child) {
 			if(child instanceof Rootlet)
 				this.root.appendChild(child.root);
 			else
 				this.root.appendChild(child);
 		}
+		setClass(classname, toggle = true) { this.root.classList[toggle ? 'add' : 'remove'](classname); }
+		triggerOnce(event_name, fn) { this.root.addEventListener(event_name, fn, { once: true }); }
+		toWaitForClick() { return cb => {
+			this.setStyle('cursor', 'pointer');
+			this.triggerOnce('click', () => {
+				this.setStyle('cursor', 'auto');
+				cb();
+			});
+		}; }
+		toStyle(key, val) { return cb => {
+			this.setStyle(key, val);
+			cb();
+		}; }
 	};
 
 	class Game extends Rootlet {
@@ -82,7 +93,9 @@
 			return component;
 		}
 		addAction(action) { this.actions.push(action); }
+		insertAction(action) { this.actions.unshift(action); }
 		addInstantAction(action) { this.actions.push(cb => (action(), cb())); }
+		insertInstantAction(action) { this.actions.unshift(cb => (action(), cb())); }
 		deploy() {
 			const cb = () => this.actions.length && this.actions.shift()(cb);
 			cb();
@@ -101,17 +114,6 @@
 		updatePosition() { this.setStyle('transform', `translate3d(${
 			this.position.map(v => v + 'px').join(', ')
 		})`); }
-		toStyle(key, val) { return cb => {
-			this.setStyle(key, val);
-			cb();
-		}; }
-		toWaitForClick() { return cb => {
-			this.setStyle('cursor', 'pointer');
-			this.triggerOnce('click', () => {
-				this.setStyle('cursor', 'auto');
-				cb();
-			});
-		}; }
 	}
 
 	Game.Rootlet = Rootlet;

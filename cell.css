@@ -61,6 +61,52 @@
 	word-break: break-all;
 }
 
-.screen.chat .dialogue {
-	background: red;
+.chat .content {
+	padding: 10px;
+}
+
+.dialogue {
+	display: flex;
+	width: fit-content;
+	margin-bottom: 10px;
+}
+.dialogue.self {
+	align-self: flex-end;
+}
+
+.dialogue .body {
+	padding: 5px 0;
+	max-width: 80%;
+}
+.dialogue .body, .dialogue .before, .dialogue .after {
+	background-size: 100% 100%;
+}
+.dialogue .before, .dialogue .after {
+	flex: 1;
+	width: 10px;
+	min-width: 10px;
+	min-height: 21px;
+	align-self: stretch;
+}
+
+.dialogue.self .body { background-image: url('resource/cell/chat/self/body.png'); }
+.dialogue.self .before { background-image: url('resource/cell/chat/self/butt.png'); }
+.dialogue.self .after { background-image: url('resource/cell/chat/self/head.png'); }
+
+.dialogue.opposite .body { background-image: url('resource/cell/chat/opposite/body.png'); }
+.dialogue.opposite .before { background-image: url('resource/cell/chat/opposite/head.png'); }
+.dialogue.opposite .after { background-image: url('resource/cell/chat/opposite/butt.png'); }
+
+.screen .alert {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 60px;
+	line-height: 60px;
+	width: 100%;
+	padding: 0px 16px;
+	box-sizing: border-box;
+	border-radius: 8px;
+	background-image: url(resource/cell/alert.png);
+	background-size: 100% 100%;
 }

@@ -14,9 +14,6 @@
 	foreground.setStyle('backgroundImage', 'url("resource/scene-3/character.png")');
 	foreground.setStyle('pointerEvents', 'none');
 
-	// const mail = scene.createComponent([67,59],[0,0,0]);
-	// mail.setStyle('backgroundImage','url(resource/mail.jpg)');
-
 	function move(component, x, y, angle = 0) {
 	    component.setStyle('transform', `translate3d(${x}px, ${y}px, 0px) rotate(${angle}rad)`);
 	}
@@ -32,7 +29,6 @@
 		return mail;
 	}
 	const progress = scene.createComponent([350, 50], [0, 0, 0]);
-	// progress.setStyle('backgroundPosition','center 0');
 	progress.root.setAttribute('style', `
 		left: 600px;
 		top: 500px;
@@ -65,7 +61,7 @@
 		scene.addAction(mail.toWaitForClick());
 		scene.addInstantAction(() => line = ++line);
 		scene.addInstantAction(() => bar.style.flex = line / mails.length);
-		scene.addAction(() => move(mail,
+		scene.addInstantAction(() => move(mail,
 			750 + (Math.random() - .5) * 50,
 			100 + (Math.random() - .5) * 50,
 			Math.random() - .5

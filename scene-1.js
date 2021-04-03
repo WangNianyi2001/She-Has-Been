@@ -7,10 +7,17 @@
 		['url(resource/cell/avatar/shasha.png)', '真的吗？我不信'],
 		['url(resource/cell/avatar/ctl.png)', '哟哟哟，这不是摇摆阳吗，几天没见这么拉了'],
 		['url(resource/cell/avatar/lbf.png)', '鬼！'],
-		['url(resource/cell/avatar/nobody.png)', 'I\m just a nobody, nobody but you~'],
+		['url(resource/cell/avatar/nobody.png)', 'I\'m just a nobody, nobody but you~'],
 	];
 	const post_text = 'somethingsomethingsomething';
-	const alert_text = '②：卧槽尼玛';
+	const dialogues = [
+		// true - self, false - opposite
+		[false, 'Hello, cnm!'],
+		[true, 'Cnm, too!'],
+		[false, 'You say your mother ne? I\'m your father.'],
+		[true, 'How could it be? There\'s no way for a grandson to be a father.'],
+		[false, 'I cnm.'],
+	];
 
 	// Declaration
 	const scene = game.createStoryboard('Scene 1', [960, 540], [0, 0, 0]);
@@ -44,28 +51,6 @@
 		'聊天'
 	);
 
-	let current_cell_alert = null;
-	function cellAlert(str) {
-		const cell_alert = makeDiv();
-		current_cell_alert = cell_alert;
-		cell.current_screen.root.appendChild(cell_alert);
-		cell_alert.style.position = 'absolute';
-		cell_alert.style.top = cell_alert.style.left = '0';
-		cell_alert.style.height = cell_alert.style.lineHeight = '60px';
-		cell_alert.style.width = '100%';
-		cell_alert.style.padding = '0px 16px';
-		cell_alert.style.boxShadow = '0px 4px 5px rgba(0,0,0,.5)';
-		cell_alert.style.boxSizing = 'border-box';
-		cell_alert.style.borderRadius = '8px';
-		cell_alert.style.backgroundColor = 'lightgray';
-		cell_alert.innerText = str;
-		return cell_alert;
-	}
-	function removeAlert() {
-		if(current_cell_alert)
-			current_cell_alert.parentNode.removeChild(current_cell_alert);
-	}
-
 	// Action sequence
 	scene.addAction(cell_hotarea.toWaitForClick());
 	scene.addInstantAction(() => {
@@ -95,22 +80,13 @@
 	scene.addInstantAction(() => cell.showScreen('moment'));
 	scene.addInstantAction(() => moment.addMoment('url(resource/cell/avatar/1.png)', post_text));
 	scene.addAction(cb => {
-		cellAlert(alert_text);
-		current_cell_alert.style.cursor = 'pointer';
-		current_cell_alert.addEventListener('click', () => {
-			removeAlert();
+		cell.alert(dialogues[0][1]);
+		cell.current_alert.setStyle('cursor', 'pointer');
+		cell.current_alert.triggerOnce('click', () => {
 			cell.showScreen('chat');
 			cb();
-		}, { once: true });
+		});
 	});
-	const dialogues = [
-		// true - self, false - opposite
-		[true, 'Hello, cnm!'],
-		[false, 'Cnm, too!'],
-		[true, 'You say your mother ne? I\'m your father.'],
-		[false, 'How could it be? There\'s no way for a grandson to be a father.'],
-		[true, 'I cnm.'],
-	];
 	scene.addInstantAction(() => chat.content.setStyle('flexDirection', 'column'));
 	for(const dialogue of dialogues) {
 		scene.addAction(cell.toWaitForClick());

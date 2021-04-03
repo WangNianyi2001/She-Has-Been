@@ -12,6 +12,7 @@
 			this.setClass('cell');
 			this.screens = new Map();
 			this.current_screen = null;
+			this.current_alert = null;
 		}
 		createScreen(prototype, name, background, str) {
 			const screen = new prototype(this, background);
@@ -30,12 +31,31 @@
 		showScreen(name) {
 			if(!this.screens.has(name))
 				return;
+			const screen = this.screens.get(name);
+			if(this.current_screen === screen)
+				return;
 			if(this.current_screen)
 				this.current_screen.hide();
-			const screen = this.screens.get(name);
+			this.removeAlert();
 			this.current_screen = screen;
 			screen.show();
 			this.setStyle('backgroundImage', screen.background);
+		}
+		alert(str) {
+			if(this.current_alert)
+				this.removeAlert();
+			const alert = makeRootlet();
+			this.current_alert = alert;
+			alert.root.innerText = str;
+			alert.setClass('alert');
+			this.current_screen.append(alert);
+		}
+		removeAlert() {
+			if(!this.current_alert)
+				return;
+			const root = this.current_alert.root;
+			root.parentNode.removeChild(root);
+			this.current_alert = null;
 		}
 	}
 	class Screen extends Rootlet {
@@ -76,9 +96,13 @@
 		}
 		addDialogue(self, str) {
 			const chat = makeRootlet();
-			chat.root.innerText = str;
+			chat.root.innerHTML = [
+				'<div class="before"></div>',
+				`<div class="body">${str}</div>`,
+				'<div class="after"></div>',
+			].join('');
 			chat.setClass('dialogue');
-			chat.setClass(self ? 'self' : 'oppose');
+			chat.setClass(self ? 'self' : 'opposite');
 			this.content.append(chat);
 		}
 	}
