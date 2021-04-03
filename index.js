@@ -14,5 +14,10 @@ const load = (href, cb) => {
 	document.body.appendChild($script);
 	$script.src = href;
 };
-const loader = () => scene_scripts.length && load(scene_scripts.shift(), loader);
+const finish = () => {
+	game.focusOn('Scene 2');
+	game.updateViewport();
+	game.activate('Scene 2');
+}
+const loader = () => scene_scripts.length ? load(scene_scripts.shift(), loader) : finish();
 loader();

@@ -103,6 +103,4 @@
 		cell.setStyle('visibility', 'visible');
 		cb();
 	});
-	
-
 }
