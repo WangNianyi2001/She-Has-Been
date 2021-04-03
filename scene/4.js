@@ -19,7 +19,6 @@
 	// Resources
 	const background = scene.createComponent([width, height], [0, 0, 0]);
 	background.setStyle('backgroundImage', 'url("resource/scene-4/background.jpg")');
-	// background.setStyle('backgroundSize', 'cover');
 
 	// Action sequence
 	scene.addAction(background.toWaitForClick());
