@@ -1,5 +1,7 @@
 'use strict';
 
+const makeDiv = () => document.createElement('div');
+
 const game = new Game(document.getElementById('game'));
 const scene_scripts = [
 	'scene-1.js',
