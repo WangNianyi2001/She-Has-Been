@@ -5,21 +5,25 @@
 	const width = 960, height = 540;
 	const message_delay = 1;
 	const moments = [
-		['url(resource/cell/avatar/wlt.png)', '我是 HHL'],
-		['url(resource/cell/avatar/sparrow.png)', '楼下是沙壁'],
-		['url(resource/cell/avatar/shasha.png)', '真的吗？我不信'],
-		['url(resource/cell/avatar/ctl.png)', '哟哟哟，这不是摇摆阳吗，几天没见这么拉了'],
-		['url(resource/cell/avatar/lbf.png)', '鬼！'],
-		['url(resource/cell/avatar/nobody.png)', 'I\'m just a nobody, nobody but you~'],
+		['url(resource/cell/avatar/wlt.png)', '连肝三十二个小时'],
+		['url(resource/cell/avatar/sparrow.png)', 'happy birthday to you.'],
+		['url(resource/cell/avatar/shasha.png)', 'win32 写完了嘛？'],
+		['url(resource/cell/avatar/ctl.png)', '今天天气真好'],
+		['url(resource/cell/avatar/lbf.png)', '清明时节雨纷纷'],
+		['url(resource/cell/avatar/nobody.png)', '游创肝完了嘛？'],
 	];
-	const post_text = 'somethingsomethingsomething';
+	const post_text = '为什么大学生活如此艰难[哭]';
 	const dialogues = [
 		// true - self, false - opposite
-		[false, 'Hello, cnm!'],
-		[true, 'Cnm, too!'],
-		[false, 'You say your mother ne? I\'m your father.'],
-		[true, 'How could it be? There\'s no way for a grandson to be a father.'],
-		[false, 'I cnm.'],
+		[false, '最近又遇到啥烦心事了'],
+		[true, '哈哈，最近只是有点忙'],
+		[false, '不像只是忙吧'],
+		[true, '的确没想到大学生活这么……'],
+		[false, '又遇到什么差劲的人了么'],
+		[true, '是啊，到了大学大家就开始复杂起来了'],
+		[false, '最近决定要继续读书了，可能我们很快会再见面'],
+		[true, '也在北京？'],
+		[false, '也在北京。'],
 	];
 
 	// Declaration

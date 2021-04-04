@@ -7,11 +7,10 @@
 	const file_anchor = [280, 140];
 	const dialogues = [
 		// true - self, false - opposite
-		[false, 'Hello, cnm!'],
-		[true, 'Cnm, too!'],
-		[false, 'You say your mother ne? I\'m your father.'],
-		[true, 'How could it be? There\'s no way for a grandson to be a father.'],
-		[false, 'I cnm.'],
+		[true, '工作结束，我出来了'],
+		[true, '几点到啊'],
+		[false, '下午四点半'],
+		[true, '好，我现在过来'],
 	];
 
 	// Declaration

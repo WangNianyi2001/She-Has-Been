@@ -5,11 +5,11 @@
 	const width = 960, height = 540;
 	const dialogues = [
 		// true - self, false - opposite
-		[false, 'Hello, cnm!'],
-		[true, 'Cnm, too!'],
-		[false, 'You say your mother ne? I\'m your father.'],
-		[true, 'How could it be? There\'s no way for a grandson to be a father.'],
-		[false, 'I cnm.'],
+		[true, '还带装备来的啊啊'],
+		[false, '帮你解决解决问题 处理一下烂人人'],
+        [true, '呦呦呦，几天没见，这么浪了了'],
+		[false, '呵~~'],
+		[true, '装备借我看看看'],
 	];
 
 	// Declaration

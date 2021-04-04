@@ -7,11 +7,11 @@
 	const delay_interval = .5;
 	const dialogues = [
 		// true - self, false - opposite
-		[false, 'Hello, cnm!'],
-		[true, 'Cnm, too!'],
-		[false, 'You say your mother ne? I\'m your father.'],
-		[true, 'How could it be? There\'s no way for a grandson to be a father.'],
-		[false, 'I cnm.'],
+		[false, '明天下午到，来接我嘛？'],
+		[true, '那么快嘛？飞机还是高铁啊'],
+		[false, '首都T3机场'],
+		[true, '行，那到时我做完学生会的工作之后来机场接你'],
+		[false, 'OK，那到时候见咯'],
 	];
 
 	// Declaration
