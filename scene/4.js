@@ -84,4 +84,16 @@
 		self.style.visibility = 'hidden';
 		opposite.style.visibility = 'hidden';
 	});
+
+	// End
+	scene.addInstantAction(() => scene.setClass('active', false));
+	scene.addInstantAction(() => {
+		game.setStyle('transitionDuration', '4s');
+		game.setStyle('transform', `scale(0.25) translate3d(-${3771 / 2}px, ${-540 / 2}px, 0px)`);
+		document.body.style.backgroundColor = '#ccdae2';
+	});
+	scene.addAction(Game.toDelay(4));
+	scene.addInstantAction(() => {
+		document.getElementById('hover').style.opacity = '1';
+	});
 }
