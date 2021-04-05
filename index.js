@@ -1,7 +1,7 @@
 'use strict';
 
 const game = new Game(document.getElementById('game'));
-const start_up_scene = 'Scene 4';
+const start_up_scene = 'Scene 1';
 
 Loader.preloadImages([
 	'resource/cell/avatar/wlt.png',

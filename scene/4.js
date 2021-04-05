@@ -7,7 +7,7 @@
 		// true - self, false - opposite
 		[true, '还带装备来的啊啊'],
 		[false, '帮你解决解决问题 处理一下烂人人'],
-        [true, '呦呦呦，几天没见，这么浪了了'],
+        [true, '谢谢你'],
 		[false, '呵~~'],
 		[true, '装备借我看看看'],
 	];
